@@ -8,7 +8,6 @@
 - SCSS
 - Webpack
 - GSAP
-- Framer Motion
 - Swiper
 
 ## Описание
