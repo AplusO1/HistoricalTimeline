@@ -69,7 +69,7 @@
 
 .categoryLabel {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: calc(100% + 12px);
   transform: translateY(-80%) rotate(var(--label-rotate, 0deg));
   transform-origin: left center;
