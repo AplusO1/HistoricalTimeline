@@ -19,6 +19,7 @@ const TimelineCircle = ({ periods, activeIndex, onDotClick }: Props) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); //увеличение точки при hover
   const [isMobile, setIsMobile] = useState(false); //адаптив для мобилки
   const [showCategoryLabel, setShowCategoryLabel] = useState(false); //появление категории после gsap анимации
+  const [displayedIndex, setDisplayedIndex] = useState(activeIndex); //показываем для кого рендерить категорию(избавляемся от мерцания)
 
   const stepAngle = 360 / periods.length; //размещаем точки по окружности
   const activeAngle = activeIndex * stepAngle; // компенсируем вращение при активации( угол в градусах, на который должна быть повернута вся окружность)
@@ -44,11 +45,15 @@ const TimelineCircle = ({ periods, activeIndex, onDotClick }: Props) => {
         duration: 0.8,
         ease: "power2.inOut",
         onComplete: () => {
+          setDisplayedIndex(activeIndex); //обновляем только после анимации
           setShowCategoryLabel(true); // Показываем после завершения
         },
       });
+    } else if (!isMobile) {
+      setDisplayedIndex(activeIndex);
+      setShowCategoryLabel(true);
     }
-  }, [activeAngle, isMobile]);
+  }, [activeAngle, isMobile, activeIndex]);
 
   if (isMobile) {
     return (
@@ -95,11 +100,9 @@ const TimelineCircle = ({ periods, activeIndex, onDotClick }: Props) => {
                   {label}
                 </span>
 
-                {isActive && showCategoryLabel && (
+                {i === displayedIndex && showCategoryLabel && (
                   <span
-                    className={`${styles.categoryLabel} ${
-                      showCategoryLabel ? styles.categoryLabelVisible : ""
-                    }`}
+                    className={`${styles.categoryLabel} ${styles.categoryLabelVisible}`}
                     style={labelRotate}
                   >
                     {title}
