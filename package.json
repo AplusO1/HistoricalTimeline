@@ -2,6 +2,7 @@
   "name": "webpack-react",
   "version": "1.0.0",
   "main": "index.js",
+  "homepage": "https://AplusO1.github.io/HistoricalTimeline",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.js --env env=prod",
     "start": "webpack serve --config webpack/webpack.config.js --env env=dev"
